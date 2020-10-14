@@ -23,7 +23,7 @@ export const FormContainer = styled.View`
   padding: 0 20px;
 `;
 
-export const CreateAccountButton = styled.TouchableOpacity`
+export const Footer = styled.TouchableOpacity`
   position: absolute;
   left: 0;
   bottom: 0;
@@ -39,7 +39,7 @@ export const CreateAccountButton = styled.TouchableOpacity`
   flex-direction: row;
 `;
 
-export const CreateAccountButtonText = styled.Text`
+export const FooterText = styled.Text`
   color: #d74d4d;
   font-size: 18px;
   margin-left: 16px;

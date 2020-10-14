@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   ScrollView,
   Image,
@@ -6,6 +6,7 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
+  PixelRatio,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -19,7 +20,24 @@ import {
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-export default function Login() {
+export default function Login({ navigation }) {
+  useEffect(() => {
+    console.log('use effect');
+  }, []);
+
+  async function handleSubmit() {
+    /* const response = await api.post('/sessions', {
+      email,
+    });
+
+    const {_id} = response.data;
+    await AsyncStorage.setItem('user', _id);
+    await AsyncStorage.setItem('techs', techs); */
+
+    console.log('teste');
+
+    navigation.navigate('SingUp');
+  }
   return (
     <>
       <KeyboardAvoidingView
@@ -37,6 +55,11 @@ export default function Login() {
           <View style={{ backgroundColor: '#ffffff', flex: 1 }} />
           <Container>
             <Image source={logoImg} />
+            <Text
+              style={{ color: '#FFFFFF', fontSize: 26, fontWeight: 'bold' }}
+            >
+              PeçaFácil
+            </Text>
 
             <FormContainer
               style={{
@@ -47,11 +70,11 @@ export default function Login() {
             >
               <Text
                 style={{
-                  fontSize: 24,
+                  fontSize: PixelRatio.getPixelSizeForLayoutSize(8),
                   alignSelf: 'center',
                   color: '#eb5757',
                   fontWeight: 'bold',
-                  marginVertical: 24,
+                  marginVertical: 10,
                 }}
               >
                 Faça seu login
@@ -92,11 +115,12 @@ export default function Login() {
             </FormContainer>
           </Container>
         </ScrollView>
+
+        <CreateAccountButton onPress={handleSubmit}>
+          <Icon name="log-in" size={20} color="#d74d4d" />
+          <CreateAccountButtonText>Criar nova conta</CreateAccountButtonText>
+        </CreateAccountButton>
       </KeyboardAvoidingView>
-      <CreateAccountButton>
-        <Icon name="log-in" size={20} color="#d74d4d" />
-        <CreateAccountButtonText>Criar asnova conta</CreateAccountButtonText>
-      </CreateAccountButton>
     </>
   );
 }

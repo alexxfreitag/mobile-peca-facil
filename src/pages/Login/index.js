@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useRef } from 'react';
 import {
   ScrollView,
   Image,
@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   PixelRatio,
+  Alert,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -20,24 +21,37 @@ import {
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+import api from '../../services/api';
+
 export default function Login({ navigation }) {
-  useEffect(() => {
-    console.log('use effect');
-  }, []);
+  const formRef = useRef(null);
 
-  async function handleSubmit() {
-    /* const response = await api.post('/sessions', {
-      email,
-    });
-
-    const {_id} = response.data;
-    await AsyncStorage.setItem('user', _id);
-    await AsyncStorage.setItem('techs', techs); */
-
-    console.log('teste');
-
-    navigation.navigate('SingUp');
+  async function handleNewAccount() {
+    navigation.navigate('SingUpOption');
   }
+
+  async function handleSubmit(data) {
+    try {
+      const response = await api.post('/sessions', {
+        email: data.email,
+        password: data.password,
+      });
+
+      Alert.alert('Login realizado com sucesso!');
+
+      /* const { token, user } = response.data;
+
+      await AsyncStorage.multiSet([
+        ['@PecaFacil:token', token],
+        ['@PecaFacil:user', JSON.stringify(user)],
+      ]); */
+
+      navigation.navigate('Home');
+    } catch (err) {
+      Alert.alert('Falha na autenticação', err.response.data.error);
+    }
+  }
+
   return (
     <>
       <KeyboardAvoidingView
@@ -62,6 +76,8 @@ export default function Login({ navigation }) {
             </Text>
 
             <FormContainer
+              ref={formRef}
+              onSubmit={handleSubmit}
               style={{
                 shadowColor: 'black',
                 shadowOpacity: 0.9,
@@ -99,7 +115,13 @@ export default function Login({ navigation }) {
                 />
               </View>
 
-              <Button>Entrar</Button>
+              <Button
+                onPress={() => {
+                  formRef.current.submitForm();
+                }}
+              >
+                Entrar
+              </Button>
 
               <Text
                 style={{
@@ -116,7 +138,7 @@ export default function Login({ navigation }) {
           </Container>
         </ScrollView>
 
-        <CreateAccountButton onPress={handleSubmit}>
+        <CreateAccountButton onPress={handleNewAccount}>
           <Icon name="log-in" size={20} color="#d74d4d" />
           <CreateAccountButtonText>Criar nova conta</CreateAccountButtonText>
         </CreateAccountButton>

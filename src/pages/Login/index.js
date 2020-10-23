@@ -9,6 +9,7 @@ import {
   PixelRatio,
   Alert,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Icon from 'react-native-vector-icons/Feather';
 import logoImg from '../../assets/logo.png';
@@ -31,6 +32,10 @@ export default function Login({ navigation }) {
   }
 
   async function handleSubmit(data) {
+    if (!data.email || !data.password) {
+      Alert.alert('Aviso', 'Necessário informar os dados de login!');
+      return;
+    }
     try {
       const response = await api.post('/sessions', {
         email: data.email,
@@ -39,12 +44,12 @@ export default function Login({ navigation }) {
 
       Alert.alert('Login realizado com sucesso!');
 
-      /* const { token, user } = response.data;
+      const { token, user } = response.data;
 
       await AsyncStorage.multiSet([
         ['@PecaFacil:token', token],
         ['@PecaFacil:user', JSON.stringify(user)],
-      ]); */
+      ]);
 
       navigation.navigate('Home');
     } catch (err) {

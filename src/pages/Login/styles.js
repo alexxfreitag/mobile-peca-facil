@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { Platform, PixelRatio } from 'react-native';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
+import { Form } from '@unform/mobile';
 
 export const Container = styled.View`
   width: 100%;
@@ -12,7 +13,7 @@ export const Container = styled.View`
   margin-top: ${PixelRatio.get() * 10}px /*30px*/;
 `;
 
-export const FormContainer = styled.View`
+export const FormContainer = styled(Form)`
   width: 100%;
   height: 315px;
   border-radius: 16px;

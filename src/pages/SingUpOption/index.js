@@ -1,11 +1,18 @@
 import React from 'react';
-import { ScrollView, Image, Text, View, PixelRatio } from 'react-native';
+import {
+  ScrollView,
+  Image,
+  Text,
+  View,
+  PixelRatio,
+  TouchableOpacity,
+} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
 import logoImg from '../../assets/logo.png';
 import { Container, FormContainer, Footer, FooterText } from './styles';
 
-export default function SingUp({ navigation }) {
+export default function SingUpOption({ navigation }) {
   return (
     <>
       <ScrollView
@@ -58,7 +65,7 @@ export default function SingUp({ navigation }) {
               }}
             >
               <View>
-                <View
+                <TouchableOpacity
                   style={{
                     borderRadius: 80,
                     height: PixelRatio.getPixelSizeForLayoutSize(50),
@@ -67,9 +74,10 @@ export default function SingUp({ navigation }) {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}
+                  onPress={() => navigation.navigate('SingUpUser')}
                 >
                   <Icon name="search" size={50} color="black" />
-                </View>
+                </TouchableOpacity>
                 <Text
                   style={{
                     fontSize: PixelRatio.getPixelSizeForLayoutSize(8),
@@ -79,7 +87,7 @@ export default function SingUp({ navigation }) {
                     marginTop: '10%',
                   }}
                 >
-                  Comprar
+                  Pesquisar
                 </Text>
               </View>
               <View>

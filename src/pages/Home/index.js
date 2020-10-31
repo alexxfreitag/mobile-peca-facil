@@ -20,7 +20,7 @@ export default function Home({ navigation }) {
   }, []);
 
   return (
-    <View style={{ backgroundColor: '#f6eeee', flex: 1 }}>
+    <View style={{ backgroundColor: '#fff', flex: 1 }}>
       <Button
         style={{ width: 300, alignSelf: 'center' }}
         onPress={() => navigation.navigate('AutomobileType')}
@@ -100,6 +100,11 @@ export default function Home({ navigation }) {
                     flexDirection: 'row',
                     alignItems: 'center',
                     alignSelf: 'flex-end',
+                  }}
+                  onPress={() => {
+                    navigation.navigate('ProductDetail', {
+                      item,
+                    });
                   }}
                 >
                   <Text

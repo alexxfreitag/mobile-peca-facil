@@ -1,5 +1,8 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  TransitionPresets,
+} from '@react-navigation/stack';
 
 import Login from '../pages/Login';
 import SingUpOption from '../pages/SingUpOption';
@@ -10,6 +13,11 @@ import ProductDetail from '../pages/ProductDetail';
 import Chat from '../pages/Chat';
 
 const Stack = createStackNavigator();
+
+const TransitionRigthWithoutHeader = {
+  headerShown: false,
+  ...TransitionPresets.SlideFromRightIOS,
+};
 
 export default function Routes() {
   return (
@@ -22,12 +30,12 @@ export default function Routes() {
       <Stack.Screen
         name="SingUpOption"
         component={SingUpOption}
-        options={{ headerShown: false }}
+        options={TransitionRigthWithoutHeader}
       />
       <Stack.Screen
         name="SingUpUser"
         component={SingUpUser}
-        options={{ headerShown: false }}
+        options={TransitionRigthWithoutHeader}
       />
       <Stack.Screen
         name="Home"

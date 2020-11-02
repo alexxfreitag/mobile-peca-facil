@@ -1,11 +1,10 @@
 import React from 'react';
-import { ScrollView, Image, Text, View, PixelRatio } from 'react-native';
+import { Image, Text, View, PixelRatio } from 'react-native';
 
-import Icon from 'react-native-vector-icons/Feather';
 import logoImg from '../../assets/logo.png';
-import { Container, FormContainer, Footer, FooterText } from './styles';
+import { Container, FormContainer } from './styles';
 
-export default function SingUpUser({}) {
+export default function SingUpUser() {
   return (
     <View style={{ flex: 1 }}>
       <View style={{ backgroundColor: '#D74D4D', flex: 1 }} />

@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, Text, Image, TouchableOpacity } from 'react-native';
+import {
+  View,
+  FlatList,
+  Text,
+  Image,
+  TouchableOpacity,
+  PixelRatio,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import Button from '../../components/Button';
 import api from '../../services/api';
@@ -20,7 +27,7 @@ export default function Home({ navigation }) {
   }, []);
 
   return (
-    <View style={{ backgroundColor: '#fff', flex: 1 }}>
+    <View style={{ backgroundColor: '#f5f5f5', flex: 1 }}>
       <Button
         style={{ width: 300, alignSelf: 'center' }}
         onPress={() => navigation.navigate('AutomobileType')}
@@ -34,6 +41,7 @@ export default function Home({ navigation }) {
           borderTopColor: '#d74d4d',
           marginTop: 20,
           paddingTop: 10,
+          flex: 1,
         }}
       >
         <Text
@@ -53,22 +61,22 @@ export default function Home({ navigation }) {
           renderItem={({ item }) => (
             <View
               style={{
-                padding: 10,
-                flex: 1,
                 flexDirection: 'row',
-                borderRadius: 10,
-                borderColor: '#d74d4d',
+                borderRadius: 3,
                 backgroundColor: '#fff',
-                borderWidth: 1,
-                shadowColor: 'black',
-                shadowOpacity: 0.9,
-                elevation: 10,
-                marginTop: 30,
+                elevation: 5,
+                marginVertical: 5,
               }}
             >
               <Image
                 source={{ uri: item.picture.url }}
-                style={{ width: 125, height: 125 }}
+                style={{
+                  width: 125,
+                  height: 125,
+                  borderTopLeftRadius: 3,
+                  borderBottomLeftRadius: 3,
+                }}
+                resizeMode="cover"
               />
               <View
                 style={{
@@ -81,18 +89,22 @@ export default function Home({ navigation }) {
               >
                 <Text
                   style={{
-                    fontSize: 18,
+                    fontSize: PixelRatio.get() * 5,
                     marginBottom: 8,
                     color: '#eb5757',
-                    fontWeight: 'bold',
+                    fontWeight: '600',
                   }}
                 >
                   {item.name}
                 </Text>
                 <Text
-                  style={{ fontSize: 14, color: '#41414d', marginBottom: 7 }}
+                  style={{ fontSize: 16, color: '#41414d', marginBottom: 7 }}
                 >
-                  {item.description}
+                  R$
+                  {item.value.toLocaleString('pt-br', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  })}
                 </Text>
 
                 <TouchableOpacity

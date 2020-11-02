@@ -68,8 +68,8 @@ export default function SingUpOption({ navigation }) {
                 <TouchableOpacity
                   style={{
                     borderRadius: 80,
-                    height: PixelRatio.getPixelSizeForLayoutSize(50),
-                    width: PixelRatio.getPixelSizeForLayoutSize(50),
+                    height: PixelRatio.getPixelSizeForLayoutSize(40),
+                    width: PixelRatio.getPixelSizeForLayoutSize(40),
                     backgroundColor: '#eb5757',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -94,8 +94,8 @@ export default function SingUpOption({ navigation }) {
                 <View
                   style={{
                     borderRadius: 80,
-                    height: PixelRatio.getPixelSizeForLayoutSize(50),
-                    width: PixelRatio.getPixelSizeForLayoutSize(50),
+                    height: PixelRatio.getPixelSizeForLayoutSize(40),
+                    width: PixelRatio.getPixelSizeForLayoutSize(40),
                     backgroundColor: '#eb5757',
                     alignItems: 'center',
                     justifyContent: 'center',

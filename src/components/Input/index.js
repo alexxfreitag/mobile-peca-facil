@@ -1,24 +1,20 @@
-import React, {
-  useEffect,
-  useRef,
-  forwardRef,
-  useImperativeHandle,
-} from 'react';
+import React, { useEffect, useRef, forwardRef } from 'react';
 import { useField } from '@unform/core';
 
+import { Text } from 'react-native';
 import { Container, Icon, TextInput } from './styles';
 
 function Input({ name, icon, ...rest }, ref) {
-  const { fieldName, registerField, defaultValue = '' } = useField(name);
+  const {
+    fieldName,
+    registerField,
+    defaultValue = '',
+    error,
+    clearError,
+  } = useField(name);
 
   const inputElementRef = useRef(null);
   const inputValueRef = useRef({ value: defaultValue });
-
-  /* useImperativeHandle(ref, () => ({
-    focus() {
-      inputRef.current.focus();
-    },
-  })); */
 
   useEffect(() => {
     registerField({
@@ -37,16 +33,20 @@ function Input({ name, icon, ...rest }, ref) {
   }, [fieldName, registerField]);
 
   return (
-    <Container>
-      <Icon name={icon} size={20} color="#EB5757" />
-      <TextInput
-        ref={inputElementRef}
-        {...rest}
-        onChangeText={(value) => {
-          inputValueRef.current.value = value;
-        }}
-      />
-    </Container>
+    <>
+      <Container>
+        <Icon name={icon} size={20} color="#EB5757" />
+        <TextInput
+          ref={inputElementRef}
+          {...rest}
+          onChangeText={(value) => {
+            inputValueRef.current.value = value;
+          }}
+          onFocus={clearError}
+        />
+      </Container>
+      {error && <Text style={{ color: '#f00' }}>{error}</Text>}
+    </>
   );
 }
 

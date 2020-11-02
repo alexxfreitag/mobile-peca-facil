@@ -4,12 +4,18 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import * as Yup from 'yup';
 import logoImg from '../../assets/logo.png';
-import { Container, FormContainer, Footer, FooterText } from './styles';
+import {
+  Container,
+  FormContainer,
+  Footer,
+  FooterText,
+  InputScrollView,
+} from './styles';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import api from '../../services/api';
 
-export default function SingUpUser({ navigation }) {
+export default function SingUpSeller({ navigation }) {
   const formRef = useRef(null);
 
   async function handleSubmit(data) {
@@ -22,6 +28,9 @@ export default function SingUpUser({ navigation }) {
         password: Yup.string()
           .required('A senha é obrigatório')
           .min(6, 'No mínimo seis dígitos'),
+        cpf_cnpj: Yup.string().required('O CPF/CNPJ é obrigatório'),
+        phone: Yup.string().required('O telefone é obrigatório'),
+        address: Yup.string().required('O endereço é obrigatório'),
       });
 
       await schema.validate(data, {
@@ -32,6 +41,10 @@ export default function SingUpUser({ navigation }) {
         name: data.name,
         email: data.email,
         password: data.password,
+        cpf_cnpj: data.cpf_cnpj,
+        phone: data.phone,
+        address: data.address,
+        seller: true,
       });
 
       Alert.alert(
@@ -62,39 +75,28 @@ export default function SingUpUser({ navigation }) {
         <View style={{ backgroundColor: '#D74D4D', flex: 1 }} />
         <View style={{ backgroundColor: '#ffffff', flex: 1 }} />
         <Container>
-          <Image
-            source={logoImg}
+          <Text
             style={{
-              width: PixelRatio.getPixelSizeForLayoutSize(50),
-              height: PixelRatio.getPixelSizeForLayoutSize(50),
+              fontSize: PixelRatio.getPixelSizeForLayoutSize(8),
+              alignSelf: 'center',
+              color: '#FFF',
+              fontWeight: 'bold',
             }}
-          />
-          <Text style={{ color: '#FFFFFF', fontSize: 24, fontWeight: 'bold' }}>
-            PeçaFácil
+          >
+            Cadastro de ferro-velho
           </Text>
-
           <FormContainer
             ref={formRef}
             onSubmit={handleSubmit}
             style={{
               shadowColor: 'black',
               shadowOpacity: 0.9,
-              elevation: 10,
+              elevation: 15,
+              borderColor: '#D74D4D',
+              borderWidth: 2,
             }}
           >
-            <Text
-              style={{
-                fontSize: PixelRatio.getPixelSizeForLayoutSize(8),
-                alignSelf: 'center',
-                color: '#eb5757',
-                fontWeight: 'bold',
-                marginVertical: 10,
-              }}
-            >
-              Cadastro de usuário
-            </Text>
-
-            <View>
+            <InputScrollView>
               <Input
                 name="name"
                 icon="user"
@@ -119,7 +121,11 @@ export default function SingUpUser({ navigation }) {
                 returnKeyType="send"
                 placeholder="Senha"
               />
-            </View>
+
+              <Input name="cpf_cnpj" icon="info" placeholder="CPF/CNPJ" />
+              <Input name="phone" icon="phone" placeholder="Telefone" />
+              <Input name="address" icon="map-pin" placeholder="Endereço" />
+            </InputScrollView>
             <Button
               onPress={() => {
                 formRef.current.submitForm();

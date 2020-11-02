@@ -91,7 +91,7 @@ export default function SingUpOption({ navigation }) {
                 </Text>
               </View>
               <View>
-                <View
+                <TouchableOpacity
                   style={{
                     borderRadius: 80,
                     height: PixelRatio.getPixelSizeForLayoutSize(40),
@@ -100,9 +100,10 @@ export default function SingUpOption({ navigation }) {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}
+                  onPress={() => navigation.navigate('SingUpSeller')}
                 >
                   <Icon name="dollar-sign" size={50} color="black" />
-                </View>
+                </TouchableOpacity>
                 <Text
                   style={{
                     fontSize: PixelRatio.getPixelSizeForLayoutSize(8),

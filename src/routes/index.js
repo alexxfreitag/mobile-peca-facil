@@ -11,6 +11,7 @@ import Home from '../pages/Home';
 import AutomobileType from '../pages/FiltersPage/AutomobileType';
 import ProductDetail from '../pages/ProductDetail';
 import Chat from '../pages/Chat';
+import SingUpSeller from '../pages/SingUpSeller';
 
 const Stack = createStackNavigator();
 
@@ -35,6 +36,11 @@ export default function Routes() {
       <Stack.Screen
         name="SingUpUser"
         component={SingUpUser}
+        options={TransitionRigthWithoutHeader}
+      />
+      <Stack.Screen
+        name="SingUpSeller"
+        component={SingUpSeller}
         options={TransitionRigthWithoutHeader}
       />
       <Stack.Screen

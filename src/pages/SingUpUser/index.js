@@ -27,6 +27,19 @@ export default function SingUpUser({ navigation }) {
       await schema.validate(data, {
         abortEarly: false,
       });
+
+      await api.post('/users', {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      });
+
+      Alert.alert(
+        'Cadastro realizado com sucesso!',
+        'Faça agora o login e aproveite o aplicativo.',
+      );
+
+      navigation.navigate('Login');
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {};
@@ -36,21 +49,11 @@ export default function SingUpUser({ navigation }) {
         });
 
         formRef.current.setErrors(errorMessages);
+        return;
       }
+      console.log(err.response.data);
+      Alert.alert('Falha na criação de usuário', err.response.data.error);
     }
-
-    /* try {
-      await api.post('/users', {
-        email: data.email,
-        password: data.password,
-      });
-
-      Alert.alert('Login realizado com sucesso!');
-
-      //navigation.navigate('Home');
-    } catch (err) {
-      Alert.alert('Falha na autenticação', err.response.data.error);
-    } */
   }
 
   return (

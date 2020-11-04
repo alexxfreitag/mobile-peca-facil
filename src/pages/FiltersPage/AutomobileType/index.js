@@ -20,10 +20,6 @@ export default function AutomobileType() {
     stepIndicatorLabelUnFinishedColor: '#aaaaaa',
   };
 
-  /* useEffect(() => {
-    console.log('isPressed->', isPressed);
-  }, [isPressed]); */
-
   return (
     <Container>
       <ViewStepIndicator>

@@ -7,9 +7,11 @@ import {
 import Login from '../pages/Login';
 import SingUpOption from '../pages/SingUpOption';
 import SingUpUser from '../pages/SingUpUser';
-import Home from '../pages/Home';
+import HomeUser from '../pages/HomeUser';
+import HomeSeller from '../pages/HomeSeller';
 import AutomobileType from '../pages/FiltersPage/AutomobileType';
 import ProductDetail from '../pages/ProductDetail';
+import ProductRegistration from '../pages/ProductRegistration';
 import Chat from '../pages/Chat';
 import SingUpSeller from '../pages/SingUpSeller';
 
@@ -44,9 +46,28 @@ export default function Routes() {
         options={TransitionRigthWithoutHeader}
       />
       <Stack.Screen
-        name="Home"
-        component={Home}
+        name="HomeUser"
+        component={HomeUser}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="HomeSeller"
+        component={HomeSeller}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ProductRegistration"
+        component={ProductRegistration}
+        options={{
+          title: 'Inserir novo produto',
+          headerStyle: {
+            backgroundColor: '#D74D4D',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: '300',
+          },
+        }}
       />
       <Stack.Screen name="AutomobileType" component={AutomobileType} />
       <Stack.Screen

@@ -42,8 +42,6 @@ export default function Login({ navigation }) {
         password: data.password,
       });
 
-      Alert.alert('Login realizado com sucesso!');
-
       const { token, user } = response.data;
 
       await AsyncStorage.multiSet([
@@ -51,7 +49,12 @@ export default function Login({ navigation }) {
         ['@PecaFacil:user', JSON.stringify(user)],
       ]);
 
-      navigation.navigate('Home');
+      if (user.seller) {
+        navigation.navigate('HomeSeller');
+        return;
+      }
+
+      navigation.navigate('HomeUser');
     } catch (err) {
       Alert.alert('Falha na autenticação', err.response.data.error);
     }

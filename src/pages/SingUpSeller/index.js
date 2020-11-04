@@ -1,9 +1,8 @@
 import React, { useRef } from 'react';
-import { Image, Text, View, PixelRatio, Alert } from 'react-native';
+import { Text, View, PixelRatio, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
 import * as Yup from 'yup';
-import logoImg from '../../assets/logo.png';
 import {
   Container,
   FormContainer,

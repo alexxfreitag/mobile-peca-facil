@@ -35,7 +35,7 @@ function Input({ name, icon, ...rest }, ref) {
   return (
     <>
       <Container>
-        <Icon name={icon} size={20} color="#EB5757" />
+        {icon && <Icon name={icon} size={20} color="#EB5757" />}
         <TextInput
           ref={inputElementRef}
           {...rest}

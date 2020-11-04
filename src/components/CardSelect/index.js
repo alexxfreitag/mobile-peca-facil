@@ -1,13 +1,10 @@
-import React, { useEffect, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 import { View } from 'react-native';
 import { Container, Text, Icon } from './styles';
 
 function CardSelect({ children, isPressed, iconName, textName, ...rest }, ref) {
-  useEffect(() => {
-    console.log('ref->', ref);
-  }, [ref]);
   return (
     <Container
       {...rest}

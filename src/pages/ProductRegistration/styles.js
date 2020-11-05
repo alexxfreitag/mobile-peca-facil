@@ -14,10 +14,15 @@ export const FormContainer = styled(Form)`
 
 export const PictureView = styled.View`
   background-color: #d74d4d;
-  flex: 1;
   justify-content: center;
   align-items: center;
   padding: ${PixelRatio.get() * 5}px 0;
+  min-height: ${PixelRatio.get() * 80}px;
+`;
+
+export const PictureImage = styled.Image`
+  width: ${PixelRatio.get() * 100}px;
+  height: ${PixelRatio.get() * 70}px;
 `;
 
 export const InputTitle = styled.Text`

@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/Feather';
 import Button from '../../components/Button';
 import api from '../../services/api';
+import logoImg from '../../assets/logo.png';
 
 export default function HomeSeller({ navigation }) {
   const [products, setProducts] = useState([]);
@@ -81,16 +82,31 @@ export default function HomeSeller({ navigation }) {
                     marginVertical: 5,
                   }}
                 >
-                  <Image
-                    source={{ uri: item.picture.url }}
-                    style={{
-                      width: 125,
-                      height: 125,
-                      borderTopLeftRadius: 3,
-                      borderBottomLeftRadius: 3,
-                    }}
-                    resizeMode="cover"
-                  />
+                  {!item.picture ? (
+                    <Image
+                      source={logoImg}
+                      style={{
+                        width: 125,
+                        height: 125,
+                        borderTopLeftRadius: 3,
+                        borderBottomLeftRadius: 3,
+                      }}
+                      resizeMode="cover"
+                    />
+                  ) : (
+                    <Image
+                      source={{
+                        uri: item.picture.url,
+                      }}
+                      style={{
+                        width: 125,
+                        height: 125,
+                        borderTopLeftRadius: 3,
+                        borderBottomLeftRadius: 3,
+                      }}
+                      resizeMode="cover"
+                    />
+                  )}
                   <View
                     style={{
                       marginHorizontal: 5,

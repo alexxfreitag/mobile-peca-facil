@@ -2,6 +2,7 @@ import React from 'react';
 import { Image, Text, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { ImageView, InformatioView, InformationTitle } from './styles';
+import logoImg from '../../assets/logo.png';
 
 export default function SingUpOption({ route, navigation }) {
   const { item } = route.params;
@@ -9,10 +10,14 @@ export default function SingUpOption({ route, navigation }) {
     <>
       <View style={{ flex: 1, backgroundColor: '#fff' }}>
         <ImageView>
-          <Image
-            source={{ uri: item.picture.url }}
-            style={{ width: 250, height: 250 }}
-          />
+          {item.picture ? (
+            <Image
+              source={{ uri: item.picture.url }}
+              style={{ width: 250, height: 250 }}
+            />
+          ) : (
+            <Image source={logoImg} style={{ width: 250, height: 250 }} />
+          )}
         </ImageView>
         <View
           style={{

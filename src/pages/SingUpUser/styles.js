@@ -24,6 +24,10 @@ export const FormContainer = styled(Form)`
   padding: 10px 20px;
 `;
 
+export const InputScrollView = styled.ScrollView`
+  width: 100%;
+`;
+
 export const Footer = styled.TouchableOpacity`
   position: absolute;
   left: 0;

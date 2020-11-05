@@ -4,7 +4,13 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import * as Yup from 'yup';
 import logoImg from '../../assets/logo.png';
-import { Container, FormContainer, Footer, FooterText } from './styles';
+import {
+  Container,
+  FormContainer,
+  Footer,
+  FooterText,
+  InputScrollView,
+} from './styles';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import api from '../../services/api';
@@ -62,15 +68,15 @@ export default function SingUpUser({ navigation }) {
         <View style={{ backgroundColor: '#D74D4D', flex: 1 }} />
         <View style={{ backgroundColor: '#ffffff', flex: 1 }} />
         <Container>
-          <Image
-            source={logoImg}
+          <Text
             style={{
-              width: PixelRatio.getPixelSizeForLayoutSize(50),
-              height: PixelRatio.getPixelSizeForLayoutSize(50),
+              fontSize: PixelRatio.getPixelSizeForLayoutSize(8),
+              alignSelf: 'center',
+              color: '#FFF',
+              fontWeight: 'bold',
             }}
-          />
-          <Text style={{ color: '#FFFFFF', fontSize: 24, fontWeight: 'bold' }}>
-            PeçaFácil
+          >
+            Cadastro de usuário
           </Text>
 
           <FormContainer
@@ -79,22 +85,12 @@ export default function SingUpUser({ navigation }) {
             style={{
               shadowColor: 'black',
               shadowOpacity: 0.9,
-              elevation: 10,
+              elevation: 15,
+              borderColor: '#D74D4D',
+              borderWidth: 2,
             }}
           >
-            <Text
-              style={{
-                fontSize: PixelRatio.getPixelSizeForLayoutSize(8),
-                alignSelf: 'center',
-                color: '#eb5757',
-                fontWeight: 'bold',
-                marginVertical: 10,
-              }}
-            >
-              Cadastro de usuário
-            </Text>
-
-            <View>
+            <InputScrollView>
               <Input
                 name="name"
                 icon="user"
@@ -119,7 +115,7 @@ export default function SingUpUser({ navigation }) {
                 returnKeyType="send"
                 placeholder="Senha"
               />
-            </View>
+            </InputScrollView>
             <Button
               onPress={() => {
                 formRef.current.submitForm();

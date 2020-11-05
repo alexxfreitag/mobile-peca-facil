@@ -1,16 +1,31 @@
-import React, { useRef } from 'react';
-import { Text, ScrollView, PixelRatio, Alert } from 'react-native';
+import React, { useState, useRef } from 'react';
+import {
+  Text,
+  ScrollView,
+  PixelRatio,
+  Alert,
+  Image,
+  Platform,
+} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Feather';
 import * as Yup from 'yup';
+import ImagePicker from 'react-native-image-picker';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import api from '../../services/api';
-import { Container, PictureView, InputTitle, FormContainer } from './styles';
+import {
+  Container,
+  PictureView,
+  PictureImage,
+  InputTitle,
+  FormContainer,
+} from './styles';
 
-export default function ProductRegistration() {
+export default function ProductRegistration({ navigation }) {
   const formRef = useRef(null);
+  const [picture, setPicture] = useState();
 
   async function handleSubmit(data) {
     try {
@@ -24,19 +39,36 @@ export default function ProductRegistration() {
         abortEarly: false,
       });
 
-      await api.post('/products', {
+      const response = await api.post('/products', {
         name: data.name,
         description: data.description,
         value: data.value,
         category: data.category,
       });
 
+      const { id: productId } = response.data;
+
+      const formData = new FormData();
+
+      const file = {
+        uri:
+          Platform.OS === 'android'
+            ? picture.uri
+            : picture.uri.replace('file://', ''),
+        name: picture.fileName,
+        type: picture.type,
+      };
+
+      formData.append('file', file);
+
+      await api.post(`/files/products/${productId}`, formData);
+
       Alert.alert(
         'Produto cadastrado com sucesso!',
         'Este produto já está sendo exibido para os usuários.',
       );
 
-      // navigation.navigate('Login');
+      navigation.goBack();
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {};
@@ -53,23 +85,39 @@ export default function ProductRegistration() {
     }
   }
 
+  function imagePickerCb(data) {
+    if (data.didCancel) return;
+    if (data.error) return;
+    if (!data.uri) return;
+
+    setPicture(data);
+  }
+
   return (
     <Container>
       <PictureView>
-        <TouchableOpacity
-          style={{
-            borderColor: '#fff',
-            borderWidth: 2,
-            borderStyle: 'dashed',
-            borderRadius: 1,
-            padding: PixelRatio.get() * 7,
-          }}
-        >
-          <Icon name="camera" size={50} color="#fff" />
-        </TouchableOpacity>
-        <Text style={{ color: '#fff', marginTop: PixelRatio.get() * 3 }}>
-          Insira a foto do seu produto clicando acima
-        </Text>
+        {picture ? (
+          <PictureImage source={{ uri: picture.uri }} resizeMode="cover" />
+        ) : (
+          <>
+            <TouchableOpacity
+              style={{
+                borderColor: '#fff',
+                borderWidth: 2,
+                borderStyle: 'dashed',
+                borderRadius: 1,
+                padding: PixelRatio.get() * 7,
+                alignItems: 'center',
+              }}
+              onPress={() => ImagePicker.showImagePicker({}, imagePickerCb)}
+            >
+              <Icon name="camera" size={50} color="#fff" />
+              <Text style={{ color: '#fff', marginTop: PixelRatio.get() * 3 }}>
+                Adicionar foto
+              </Text>
+            </TouchableOpacity>
+          </>
+        )}
       </PictureView>
       <FormContainer ref={formRef} onSubmit={handleSubmit}>
         <ScrollView>

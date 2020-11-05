@@ -135,10 +135,10 @@ export default function HomeSeller({ navigation }) {
                       >
                         <Text
                           style={{
-                            fontSize: PixelRatio.get() * 5,
+                            fontSize: PixelRatio.get() * 6,
                             marginBottom: 8,
                             color: '#eb5757',
-                            fontWeight: '600',
+                            fontWeight: '700',
                           }}
                         >
                           {item.name}
@@ -173,7 +173,7 @@ export default function HomeSeller({ navigation }) {
                             style={{
                               color: '#e02041',
                               fontSize: 15,
-                              fontWeight: 'bold',
+                              fontWeight: '600',
                               marginRight: 2,
                             }}
                           >

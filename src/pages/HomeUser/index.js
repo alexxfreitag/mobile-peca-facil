@@ -132,10 +132,10 @@ export default function HomeUser({ navigation }) {
                       >
                         <Text
                           style={{
-                            fontSize: PixelRatio.get() * 5,
+                            fontSize: PixelRatio.get() * 6,
                             marginBottom: 8,
                             color: '#eb5757',
-                            fontWeight: '600',
+                            fontWeight: '700',
                           }}
                         >
                           {item.name}

@@ -1,9 +1,8 @@
-import React, { useRef } from 'react';
-import { Image, Text, View, PixelRatio, Alert } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { Text, View, PixelRatio, Alert, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
 import * as Yup from 'yup';
-import logoImg from '../../assets/logo.png';
 import {
   Container,
   FormContainer,
@@ -17,8 +16,10 @@ import api from '../../services/api';
 
 export default function SingUpUser({ navigation }) {
   const formRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(data) {
+    setLoading(true);
     try {
       const schema = Yup.object().shape({
         name: Yup.string().required('O nome é obrigatório'),
@@ -59,6 +60,8 @@ export default function SingUpUser({ navigation }) {
       }
 
       Alert.alert('Falha na criação de usuário', err.response.data.error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -121,7 +124,11 @@ export default function SingUpUser({ navigation }) {
                 formRef.current.submitForm();
               }}
             >
-              Cadastrar
+              {loading ? (
+                <ActivityIndicator size={20} color="#fff" />
+              ) : (
+                <Text>Cadastrar</Text>
+              )}
             </Button>
           </FormContainer>
         </Container>

@@ -104,7 +104,6 @@ export default function SingUpSeller({ navigation }) {
                 name="name"
                 icon="user"
                 autoCorrect={false}
-                autoCapitalize="none"
                 placeholder="Nome"
               />
 

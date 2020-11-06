@@ -124,6 +124,7 @@ export default function Login({ navigation }) {
                   name="password"
                   secureTextEntry
                   icon="lock"
+                  autoCapitalize="none"
                   returnKeyType="send"
                   placeholder="Senha"
                 />

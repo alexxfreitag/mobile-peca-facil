@@ -98,7 +98,6 @@ export default function SingUpUser({ navigation }) {
                 name="name"
                 icon="user"
                 autoCorrect={false}
-                autoCapitalize="none"
                 placeholder="Nome"
               />
 
@@ -115,6 +114,7 @@ export default function SingUpUser({ navigation }) {
                 name="password"
                 secureTextEntry
                 icon="lock"
+                autoCapitalize="none"
                 returnKeyType="send"
                 placeholder="Senha"
               />

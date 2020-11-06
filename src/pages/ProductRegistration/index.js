@@ -4,8 +4,8 @@ import {
   ScrollView,
   PixelRatio,
   Alert,
-  Image,
   Platform,
+  ActivityIndicator,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Feather';
@@ -26,8 +26,10 @@ import {
 export default function ProductRegistration({ navigation }) {
   const formRef = useRef(null);
   const [picture, setPicture] = useState();
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(data) {
+    setLoading(true);
     try {
       const schema = Yup.object().shape({
         name: Yup.string().required('O título é obrigatório'),
@@ -82,6 +84,8 @@ export default function ProductRegistration({ navigation }) {
       }
 
       Alert.alert('Falha no cadastro de produto', err.response.data.error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -145,7 +149,11 @@ export default function ProductRegistration({ navigation }) {
             formRef.current.submitForm();
           }}
         >
-          Cadastrar
+          {loading ? (
+            <ActivityIndicator size={20} color="#fff" />
+          ) : (
+            <Text>Cadastrar</Text>
+          )}
         </Button>
       </FormContainer>
     </Container>

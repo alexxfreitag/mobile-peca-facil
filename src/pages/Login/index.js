@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   ScrollView,
   Image,
@@ -8,6 +8,7 @@ import {
   Platform,
   PixelRatio,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -26,6 +27,7 @@ import api from '../../services/api';
 
 export default function Login({ navigation }) {
   const formRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   async function handleNewAccount() {
     navigation.navigate('SingUpOption');
@@ -36,6 +38,8 @@ export default function Login({ navigation }) {
       Alert.alert('Aviso', 'Necessário informar os dados de login!');
       return;
     }
+
+    setLoading(true);
     try {
       const response = await api.post('/sessions', {
         email: data.email,
@@ -57,6 +61,8 @@ export default function Login({ navigation }) {
       navigation.navigate('HomeUser');
     } catch (err) {
       Alert.alert('Falha na autenticação', err.response.data.error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -128,7 +134,11 @@ export default function Login({ navigation }) {
                   formRef.current.submitForm();
                 }}
               >
-                Entrar
+                {loading ? (
+                  <ActivityIndicator size={20} color="#fff" />
+                ) : (
+                  <Text>Entrar</Text>
+                )}
               </Button>
 
               <Text

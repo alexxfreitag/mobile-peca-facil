@@ -14,6 +14,7 @@ import ImagePicker from 'react-native-image-picker';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import InputMask from '../../components/InputMask';
 import api from '../../services/api';
 import {
   Container,
@@ -137,10 +138,11 @@ export default function ProductRegistration({ navigation }) {
           <InputTitle style={{ marginTop: 20 }}>Categoria *</InputTitle>
           <Input name="category" placeholder="Ex: Motor" />
           <InputTitle style={{ marginTop: 20 }}>Valor *</InputTitle>
-          <Input
-            keyboardType="number-pad"
+          <InputMask
+            type="money"
             name="value"
-            placeholder="Ex: 250.00"
+            keyboardType="number-pad"
+            placeholder="Ex: R$250,00"
           />
         </ScrollView>
         <Button

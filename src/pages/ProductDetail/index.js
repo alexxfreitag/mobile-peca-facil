@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import { ImageView, InformatioView, InformationTitle } from './styles';
 import logoImg from '../../assets/logo.png';
 
-export default function SingUpOption({ route, navigation }) {
+export default function SignUpOption({ route, navigation }) {
   const { item } = route.params;
   return (
     <>

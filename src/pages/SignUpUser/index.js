@@ -14,7 +14,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import api from '../../services/api';
 
-export default function SingUpUser({ navigation }) {
+export default function SignUpUser({ navigation }) {
   const formRef = useRef(null);
   const [loading, setLoading] = useState(false);
 
@@ -98,7 +98,6 @@ export default function SingUpUser({ navigation }) {
                 name="name"
                 icon="user"
                 autoCorrect={false}
-                autoCapitalize="none"
                 placeholder="Nome"
               />
 
@@ -115,6 +114,7 @@ export default function SingUpUser({ navigation }) {
                 name="password"
                 secureTextEntry
                 icon="lock"
+                autoCapitalize="none"
                 returnKeyType="send"
                 placeholder="Senha"
               />

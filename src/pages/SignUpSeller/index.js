@@ -13,8 +13,9 @@ import {
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import api from '../../services/api';
+import InputMask from '../../components/InputMask';
 
-export default function SingUpSeller({ navigation }) {
+export default function SignUpSeller({ navigation }) {
   const formRef = useRef(null);
   const [loading, setLoading] = useState(false);
 
@@ -29,7 +30,10 @@ export default function SingUpSeller({ navigation }) {
         password: Yup.string()
           .required('A senha é obrigatório')
           .min(6, 'No mínimo seis dígitos'),
-        cpf_cnpj: Yup.string().required('O CPF/CNPJ é obrigatório'),
+        cpf_cnpj: Yup.string()
+          .required('O CPF/CNPJ é obrigatório')
+          .min(14, 'Necessário informar 14 números')
+          .max(14, 'Necessário informar 14 números'),
         phone: Yup.string().required('O telefone é obrigatório'),
         address: Yup.string().required('O endereço é obrigatório'),
       });
@@ -104,7 +108,6 @@ export default function SingUpSeller({ navigation }) {
                 name="name"
                 icon="user"
                 autoCorrect={false}
-                autoCapitalize="none"
                 placeholder="Nome"
               />
 
@@ -125,8 +128,22 @@ export default function SingUpSeller({ navigation }) {
                 placeholder="Senha"
               />
 
-              <Input name="cpf_cnpj" icon="info" placeholder="CPF/CNPJ" />
-              <Input name="phone" icon="phone" placeholder="Telefone" />
+              <InputMask
+                type="cnpj"
+                name="cpf_cnpj"
+                icon="info"
+                keyboardType="numeric"
+                placeholder="CNPJ"
+              />
+
+              <InputMask
+                type="cel-phone"
+                name="phone"
+                icon="phone"
+                keyboardType="numeric"
+                placeholder="Telefone"
+              />
+
               <Input name="address" icon="map-pin" placeholder="Endereço" />
             </InputScrollView>
             <Button

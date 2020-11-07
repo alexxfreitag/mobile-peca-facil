@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, forwardRef } from 'react';
+import React, { useEffect, useRef, useCallback, forwardRef } from 'react';
 import { useField } from '@unform/core';
 
 import { Text } from 'react-native';
 import { Container, Icon, TextInput } from './styles';
 
-function Input({ name, icon, ...rest }, ref) {
+function Input({ name, onChangeText, rawValue, icon, ...rest }, ref) {
   const {
     fieldName,
     registerField,
@@ -15,6 +15,14 @@ function Input({ name, icon, ...rest }, ref) {
 
   const inputElementRef = useRef(null);
   const inputValueRef = useRef({ value: defaultValue });
+
+  const handleOnChange = useCallback(
+    (text) => {
+      if (inputValueRef.current) inputValueRef.current.value = text;
+      if (onChangeText) onChangeText(text);
+    },
+    [onChangeText],
+  );
 
   useEffect(() => {
     registerField({
@@ -29,8 +37,11 @@ function Input({ name, icon, ...rest }, ref) {
         inputValueRef.current.value = '';
         inputElementRef.current.clear();
       },
+      getValue() {
+        return rawValue || inputValueRef.current.value;
+      },
     });
-  }, [fieldName, registerField]);
+  }, [fieldName, rawValue, registerField]);
 
   return (
     <>
@@ -39,9 +50,7 @@ function Input({ name, icon, ...rest }, ref) {
         <TextInput
           ref={inputElementRef}
           {...rest}
-          onChangeText={(value) => {
-            inputValueRef.current.value = value;
-          }}
+          onChangeText={handleOnChange}
           onFocus={clearError}
         />
       </Container>

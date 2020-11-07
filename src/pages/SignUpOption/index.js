@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import logoImg from '../../assets/logo.png';
 import { Container, FormContainer, Footer, FooterText } from './styles';
 
-export default function SingUpOption({ navigation }) {
+export default function SignUpOption({ navigation }) {
   return (
     <>
       <ScrollView
@@ -74,7 +74,7 @@ export default function SingUpOption({ navigation }) {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}
-                  onPress={() => navigation.navigate('SingUpUser')}
+                  onPress={() => navigation.navigate('SignUpUser')}
                 >
                   <Icon name="search" size={50} color="black" />
                 </TouchableOpacity>
@@ -100,7 +100,7 @@ export default function SingUpOption({ navigation }) {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}
-                  onPress={() => navigation.navigate('SingUpSeller')}
+                  onPress={() => navigation.navigate('SignUpSeller')}
                 >
                   <Icon name="dollar-sign" size={50} color="black" />
                 </TouchableOpacity>

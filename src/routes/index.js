@@ -5,15 +5,15 @@ import {
 } from '@react-navigation/stack';
 
 import Login from '../pages/Login';
-import SingUpOption from '../pages/SingUpOption';
-import SingUpUser from '../pages/SingUpUser';
+import SignUpOption from '../pages/SignUpOption';
+import SignUpUser from '../pages/SignUpUser';
 import HomeUser from '../pages/HomeUser';
 import HomeSeller from '../pages/HomeSeller';
 import AutomobileType from '../pages/FiltersPage/AutomobileType';
 import ProductDetail from '../pages/ProductDetail';
 import ProductRegistration from '../pages/ProductRegistration';
 import Chat from '../pages/Chat';
-import SingUpSeller from '../pages/SingUpSeller';
+import SignUpSeller from '../pages/SignUpSeller';
 
 const Stack = createStackNavigator();
 
@@ -31,18 +31,18 @@ export default function Routes() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="SingUpOption"
-        component={SingUpOption}
+        name="SignUpOption"
+        component={SignUpOption}
         options={TransitionRigthWithoutHeader}
       />
       <Stack.Screen
-        name="SingUpUser"
-        component={SingUpUser}
+        name="SignUpUser"
+        component={SignUpUser}
         options={TransitionRigthWithoutHeader}
       />
       <Stack.Screen
-        name="SingUpSeller"
-        component={SingUpSeller}
+        name="SignUpSeller"
+        component={SignUpSeller}
         options={TransitionRigthWithoutHeader}
       />
       <Stack.Screen

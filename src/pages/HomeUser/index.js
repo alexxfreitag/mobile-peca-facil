@@ -26,6 +26,90 @@ export default function HomeUser({ navigation }) {
     loadData();
   }, []);
 
+  const renderItem = ({ item }) => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          borderRadius: 3,
+          backgroundColor: '#fff',
+          elevation: 5,
+          marginVertical: 5,
+          flex: 1,
+        }}
+      >
+        <Image
+          source={{ uri: item.picture.url }}
+          style={{
+            width: 125,
+            height: 125,
+            borderTopLeftRadius: 3,
+            borderBottomLeftRadius: 3,
+          }}
+          resizeMode="cover"
+        />
+        <View
+          style={{
+            marginHorizontal: 5,
+            paddingHorizontal: 5,
+            flexDirection: 'column',
+            justifyContent: 'space-around',
+            flex: 1,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: PixelRatio.get() * 6,
+              marginBottom: 8,
+              color: '#eb5757',
+              fontWeight: '700',
+            }}
+          >
+            {item.name}
+          </Text>
+          <Text
+            style={{
+              fontSize: 16,
+              color: '#41414d',
+              marginBottom: 7,
+            }}
+          >
+            R$
+            {item.value.toLocaleString('pt-br', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
+          </Text>
+
+          <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              alignSelf: 'flex-end',
+            }}
+            onPress={() => {
+              navigation.navigate('ProductDetail', {
+                item,
+              });
+            }}
+          >
+            <Text
+              style={{
+                color: '#e02041',
+                fontSize: 15,
+                fontWeight: 'bold',
+                marginRight: 2,
+              }}
+            >
+              Ver mais detalhes
+            </Text>
+            <Icon name="arrow-right" size={16} color="#d74d4d" />
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <View style={{ backgroundColor: '#f5f5f5', flex: 1 }}>
       {loading ? (
@@ -86,101 +170,8 @@ export default function HomeUser({ navigation }) {
                 <FlatList
                   data={products}
                   keyExtractor={(item) => String(item.id)}
-                  renderItem={({ item }) => (
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        borderRadius: 3,
-                        backgroundColor: '#fff',
-                        elevation: 5,
-                        marginVertical: 5,
-                      }}
-                    >
-                      {!item.picture ? (
-                        <Image
-                          source={logoImg}
-                          style={{
-                            width: 125,
-                            height: 125,
-                            borderTopLeftRadius: 3,
-                            borderBottomLeftRadius: 3,
-                          }}
-                          resizeMode="cover"
-                        />
-                      ) : (
-                        <Image
-                          source={{
-                            uri: item.picture.url,
-                          }}
-                          style={{
-                            width: 125,
-                            height: 125,
-                            borderTopLeftRadius: 3,
-                            borderBottomLeftRadius: 3,
-                          }}
-                          resizeMode="cover"
-                        />
-                      )}
-                      <View
-                        style={{
-                          marginHorizontal: 5,
-                          paddingHorizontal: 5,
-                          flexDirection: 'column',
-                          justifyContent: 'space-around',
-                          flex: 1,
-                        }}
-                      >
-                        <Text
-                          style={{
-                            fontSize: PixelRatio.get() * 6,
-                            marginBottom: 8,
-                            color: '#eb5757',
-                            fontWeight: '700',
-                          }}
-                        >
-                          {item.name}
-                        </Text>
-                        <Text
-                          style={{
-                            fontSize: 16,
-                            color: '#41414d',
-                            marginBottom: 7,
-                          }}
-                        >
-                          R$
-                          {item.value.toLocaleString('pt-br', {
-                            style: 'currency',
-                            currency: 'BRL',
-                          })}
-                        </Text>
-
-                        <TouchableOpacity
-                          style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            alignSelf: 'flex-end',
-                          }}
-                          onPress={() => {
-                            navigation.navigate('ProductDetail', {
-                              item,
-                            });
-                          }}
-                        >
-                          <Text
-                            style={{
-                              color: '#e02041',
-                              fontSize: 15,
-                              fontWeight: 'bold',
-                              marginRight: 2,
-                            }}
-                          >
-                            Ver mais detalhes
-                          </Text>
-                          <Icon name="arrow-right" size={16} color="#d74d4d" />
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                  )}
+                  windowSize={10}
+                  renderItem={renderItem}
                 />
               </>
             )}

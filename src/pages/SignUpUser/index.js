@@ -14,7 +14,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import api from '../../services/api';
 
-export default function SingUpUser({ navigation }) {
+export default function SignUpUser({ navigation }) {
   const formRef = useRef(null);
   const [loading, setLoading] = useState(false);
 

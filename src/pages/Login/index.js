@@ -30,7 +30,7 @@ export default function Login({ navigation }) {
   const [loading, setLoading] = useState(false);
 
   async function handleNewAccount() {
-    navigation.navigate('SingUpOption');
+    navigation.navigate('SignUpOption');
   }
 
   async function handleSubmit(data) {

@@ -38,16 +38,29 @@ export default function HomeUser({ navigation }) {
           flex: 1,
         }}
       >
-        <Image
-          source={{ uri: item.picture.url }}
-          style={{
-            width: 125,
-            height: 125,
-            borderTopLeftRadius: 3,
-            borderBottomLeftRadius: 3,
-          }}
-          resizeMode="cover"
-        />
+        {!item.picture ? (
+          <Image
+            source={logoImg}
+            style={{
+              width: 125,
+              height: 125,
+              borderTopLeftRadius: 3,
+              borderBottomLeftRadius: 3,
+            }}
+            resizeMode="cover"
+          />
+        ) : (
+          <Image
+            source={{ uri: item.picture.url }}
+            style={{
+              width: 125,
+              height: 125,
+              borderTopLeftRadius: 3,
+              borderBottomLeftRadius: 3,
+            }}
+            resizeMode="cover"
+          />
+        )}
         <View
           style={{
             marginHorizontal: 5,

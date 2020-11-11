@@ -52,6 +52,7 @@ function Input({ name, onChangeText, rawValue, icon, ...rest }, ref) {
           {...rest}
           onChangeText={handleOnChange}
           onFocus={clearError}
+          defaultValue={defaultValue}
         />
       </Container>
       {error && <Text style={{ color: '#f00' }}>{error}</Text>}

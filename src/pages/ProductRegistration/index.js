@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Text,
   ScrollView,
@@ -24,10 +24,29 @@ import {
   FormContainer,
 } from './styles';
 
-export default function ProductRegistration({ navigation }) {
+export default function ProductRegistration({ route, navigation }) {
   const formRef = useRef(null);
   const [picture, setPicture] = useState();
   const [loading, setLoading] = useState(false);
+  const [updateMode, setUpdateMode] = useState(false);
+
+  const initialData = {
+    name: route.params?.item.name,
+    description: route.params?.item.description,
+    category: route.params?.item.category,
+    value: `${route.params?.item.value}`,
+  };
+
+  useEffect(() => {
+    if (route.params?.item) {
+      setUpdateMode(true);
+      console.log(route.params?.item.value);
+    }
+  }, []);
+
+  const goBack = (productId) => {
+    navigation.navigate('HomeSeller', { productId });
+  };
 
   async function handleSubmit(data) {
     setLoading(true);
@@ -51,27 +70,29 @@ export default function ProductRegistration({ navigation }) {
 
       const { id: productId } = response.data;
 
-      const formData = new FormData();
+      if (picture) {
+        const formData = new FormData();
 
-      const file = {
-        uri:
-          Platform.OS === 'android'
-            ? picture.uri
-            : picture.uri.replace('file://', ''),
-        name: picture.fileName,
-        type: picture.type,
-      };
+        const file = {
+          uri:
+            Platform.OS === 'android'
+              ? picture.uri
+              : picture.uri.replace('file://', ''),
+          name: picture.fileName,
+          type: picture.type,
+        };
 
-      formData.append('file', file);
+        formData.append('file', file);
 
-      await api.post(`/files/products/${productId}`, formData);
+        await api.post(`/files/products/${productId}`, formData);
+      }
 
       Alert.alert(
         'Produto cadastrado com sucesso!',
         'Este produto já está sendo exibido para os usuários.',
       );
 
-      navigation.goBack();
+      goBack(productId);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {};
@@ -124,7 +145,11 @@ export default function ProductRegistration({ navigation }) {
           </>
         )}
       </PictureView>
-      <FormContainer ref={formRef} onSubmit={handleSubmit}>
+      <FormContainer
+        initialData={initialData}
+        ref={formRef}
+        onSubmit={handleSubmit}
+      >
         <ScrollView>
           <InputTitle>Título do produto *</InputTitle>
           <Input name="name" placeholder="Ex: Lâmpada traseira" />
@@ -154,7 +179,7 @@ export default function ProductRegistration({ navigation }) {
           {loading ? (
             <ActivityIndicator size={20} color="#fff" />
           ) : (
-            <Text>Cadastrar</Text>
+            <Text>{updateMode ? 'Atualizar' : 'Cadastrar'}</Text>
           )}
         </Button>
       </FormContainer>

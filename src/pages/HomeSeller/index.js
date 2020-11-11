@@ -14,7 +14,7 @@ import Button from '../../components/Button';
 import api from '../../services/api';
 import logoImg from '../../assets/logo.png';
 
-export default function HomeSeller({ navigation }) {
+export default function HomeSeller({ route, navigation }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,6 +28,22 @@ export default function HomeSeller({ navigation }) {
     }
     loadData();
   }, []);
+
+  useEffect(() => {
+    console.log('useEffect');
+    console.log(route.params);
+    if (route.params?.productId) {
+      console.log('useEffect inside conditional');
+      const addNewProduct = async (productId) => {
+        console.log('addNewProduct');
+        console.log(productId);
+        const response = await api.get(`/products/${productId}`);
+        console.log(response.data);
+        setProducts([...products, response.data]);
+      };
+      addNewProduct(route.params?.productId);
+    }
+  }, [route.params?.productId]);
 
   return (
     <View style={{ backgroundColor: '#f5f5f5', flex: 1 }}>
@@ -47,7 +63,9 @@ export default function HomeSeller({ navigation }) {
         <>
           <Button
             style={{ width: 300, alignSelf: 'center' }}
-            onPress={() => navigation.navigate('ProductRegistration')}
+            onPress={() => {
+              navigation.navigate('ProductRegistration');
+            }}
           >
             Cadastrar
           </Button>
@@ -164,7 +182,7 @@ export default function HomeSeller({ navigation }) {
                             alignSelf: 'flex-end',
                           }}
                           onPress={() => {
-                            navigation.navigate('ProductDetail', {
+                            navigation.navigate('ProductRegistration', {
                               item,
                             });
                           }}
@@ -177,7 +195,7 @@ export default function HomeSeller({ navigation }) {
                               marginRight: 2,
                             }}
                           >
-                            Ver mais detalhes
+                            Editar peça
                           </Text>
                           <Icon name="arrow-right" size={16} color="#d74d4d" />
                         </TouchableOpacity>

@@ -23,6 +23,13 @@ export default function HomeSeller({ route, navigation }) {
       const user = await AsyncStorage.getItem('@PecaFacil:user');
       const userParsed = JSON.parse(user);
       const response = await api.get(`/products?user_id=${userParsed.id}`);
+      response.data.forEach((element) => {
+        // eslint-disable-next-line no-param-reassign
+        element.value = `R$ ${element.value
+          .toFixed(2)
+          .replace('.', ',')
+          .replace(/(\d)(?=(\d{3})+,)/g, '$1.')}`;
+      });
       setProducts(response.data);
       setLoading(false);
     }
@@ -168,11 +175,7 @@ export default function HomeSeller({ route, navigation }) {
                             marginBottom: 7,
                           }}
                         >
-                          R$
-                          {item.value.toLocaleString('pt-br', {
-                            style: 'currency',
-                            currency: 'BRL',
-                          })}
+                          {item.value}
                         </Text>
 
                         <TouchableOpacity

@@ -4,7 +4,10 @@ import { useField } from '@unform/core';
 import { Text } from 'react-native';
 import { Container, Icon, TextInput } from './styles';
 
-function Input({ name, onChangeText, rawValue, icon, ...rest }, ref) {
+function Input(
+  { name, onChangeText, rawValue, icon, onInitialData, ...rest },
+  ref,
+) {
   const {
     fieldName,
     registerField,
@@ -23,6 +26,14 @@ function Input({ name, onChangeText, rawValue, icon, ...rest }, ref) {
     },
     [onChangeText],
   );
+
+  useEffect(() => {
+    if (inputValueRef.current) inputValueRef.current.value = defaultValue;
+  }, [defaultValue]);
+
+  useEffect(() => {
+    if (onInitialData) onInitialData(defaultValue);
+  }, [defaultValue, onInitialData]);
 
   useEffect(() => {
     registerField({
@@ -49,10 +60,10 @@ function Input({ name, onChangeText, rawValue, icon, ...rest }, ref) {
         {icon && <Icon name={icon} size={20} color="#EB5757" />}
         <TextInput
           ref={inputElementRef}
-          {...rest}
           onChangeText={handleOnChange}
           onFocus={clearError}
           defaultValue={defaultValue}
+          {...rest}
         />
       </Container>
       {error && <Text style={{ color: '#f00' }}>{error}</Text>}

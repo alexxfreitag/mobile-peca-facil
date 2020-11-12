@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { TextInputMask } from 'react-native-masked-text';
 import Input from '../Input';
 
-const InputMask = ({ type, ...rest }) => {
+const InputMask = ({ type, ...rest }, inputRef) => {
   const [value, setValue] = useState('');
   const [rawValue, setRawValue] = useState('');
 
@@ -19,8 +19,10 @@ const InputMask = ({ type, ...rest }) => {
       onChangeText={handleOnChangeText}
       customTextInput={Input}
       customTextInputProps={{
+        ref: inputRef,
         rawValue,
         ...rest,
+        onInitialData: setValue,
       }}
       {...rest}
     />

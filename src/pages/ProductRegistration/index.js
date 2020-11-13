@@ -39,13 +39,16 @@ export default function ProductRegistration({ route, navigation }) {
 
   useEffect(() => {
     if (route.params?.item) {
+      const pictureParam = {
+        uri: route.params?.item.picture.url,
+      };
+      setPicture(pictureParam);
       setUpdateMode(true);
-      console.log(route.params?.item.value);
     }
   }, []);
 
-  const goBack = (productId) => {
-    navigation.navigate('HomeSeller', { productId });
+  const goBack = (productId, updateItem) => {
+    navigation.navigate('HomeSeller', { productId, updateItem });
   };
 
   async function handleSubmit(data) {
@@ -60,6 +63,34 @@ export default function ProductRegistration({ route, navigation }) {
       await schema.validate(data, {
         abortEarly: false,
       });
+
+      if (updateMode) {
+        const productId = route.params?.item.id;
+
+        const body = {};
+        if (initialData.name !== data.name) body.name = data.name;
+        if (initialData.description !== data.description)
+          body.description = data.description;
+        if (initialData.value !== data.value) body.value = data.value;
+        if (initialData.category !== data.category)
+          body.category = data.category;
+
+        if (Object.keys(body).length === 0) {
+          Alert.alert(
+            'Produto não atualizado!',
+            'Nenhuma informação foi alterada.',
+          );
+          return;
+        }
+
+        await api.put(`/products/${productId}`, body);
+
+        Alert.alert('Produto atualizado com sucesso!');
+
+        goBack(productId, true);
+
+        return;
+      }
 
       const response = await api.post('/products', {
         name: data.name,
@@ -92,7 +123,7 @@ export default function ProductRegistration({ route, navigation }) {
         'Este produto já está sendo exibido para os usuários.',
       );
 
-      goBack(productId);
+      goBack(productId, false);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {};

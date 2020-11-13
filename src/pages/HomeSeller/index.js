@@ -37,18 +37,23 @@ export default function HomeSeller({ route, navigation }) {
   }, []);
 
   useEffect(() => {
-    console.log('useEffect');
-    console.log(route.params);
     if (route.params?.productId) {
-      console.log('useEffect inside conditional');
-      const addNewProduct = async (productId) => {
-        console.log('addNewProduct');
-        console.log(productId);
+      const newProduct = async (productId) => {
         const response = await api.get(`/products/${productId}`);
-        console.log(response.data);
-        setProducts([...products, response.data]);
+        const newItem = response.data;
+        newItem.value = `R$ ${newItem.value
+          .toFixed(2)
+          .replace('.', ',')
+          .replace(/(\d)(?=(\d{3})+,)/g, '$1.')}`;
+        if (route.params?.updateItem) {
+          setProducts(
+            products.map((item) => (item.id === productId ? newItem : item)),
+          );
+        } else {
+          setProducts([...products, response.data]);
+        }
       };
-      addNewProduct(route.params?.productId);
+      newProduct(route.params?.productId);
     }
   }, [route.params?.productId]);
 

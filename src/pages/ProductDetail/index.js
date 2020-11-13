@@ -1,11 +1,13 @@
 import React from 'react';
 import { Image, Text, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import { TextMask } from 'react-native-masked-text';
 import { ImageView, InformatioView, InformationTitle } from './styles';
 import logoImg from '../../assets/logo.png';
 
 export default function SignUpOption({ route, navigation }) {
   const { item } = route.params;
+
   return (
     <>
       <View style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -44,9 +46,7 @@ export default function SignUpOption({ route, navigation }) {
           <InformatioView>
             <InformationTitle>Anunciante</InformationTitle>
             <Text style={{ fontSize: 14, marginTop: 5 }}>{item.user.name}</Text>
-            <Text style={{ fontSize: 14, marginTop: 5 }}>
-              {item.user.phone}
-            </Text>
+            <TextMask value={item.user.phone} type="cel-phone" />
           </InformatioView>
         </View>
         <TouchableOpacity

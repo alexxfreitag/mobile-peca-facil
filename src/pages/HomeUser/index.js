@@ -21,6 +21,13 @@ export default function HomeUser({ navigation }) {
     async function loadData() {
       const response = await api.get('/products');
       setProducts(response.data);
+      response.data.forEach((element) => {
+        // eslint-disable-next-line no-param-reassign
+        element.value = `R$ ${element.value
+          .toFixed(2)
+          .replace('.', ',')
+          .replace(/(\d)(?=(\d{3})+,)/g, '$1.')}`;
+      });
       setLoading(false);
     }
     loadData();
@@ -87,11 +94,7 @@ export default function HomeUser({ navigation }) {
               marginBottom: 7,
             }}
           >
-            R$
-            {item.value.toLocaleString('pt-br', {
-              style: 'currency',
-              currency: 'BRL',
-            })}
+            {item.value}
           </Text>
 
           <TouchableOpacity
@@ -178,7 +181,7 @@ export default function HomeUser({ navigation }) {
                     fontWeight: 'bold',
                   }}
                 >
-                  Peças cadastradas:
+                  Peças disponíveis:
                 </Text>
                 <FlatList
                   data={products}

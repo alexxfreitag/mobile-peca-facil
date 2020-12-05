@@ -5,7 +5,7 @@ import { TextMask } from 'react-native-masked-text';
 import { ImageView, InformatioView, InformationTitle } from './styles';
 import logoImg from '../../assets/logo.png';
 
-export default function SignUpOption({ route, navigation }) {
+export default function ProductDetail({ route, navigation }) {
   const { item } = route.params;
 
   return (
@@ -29,10 +29,7 @@ export default function SignUpOption({ route, navigation }) {
           }}
         >
           <Text style={{ fontSize: 20, fontWeight: '300' }}>{item.name}</Text>
-          <Text style={{ fontSize: 20, fontWeight: '700' }}>
-            R$
-            {item.value}
-          </Text>
+          <Text style={{ fontSize: 20, fontWeight: '700' }}>{item.value}</Text>
           <InformatioView>
             <InformationTitle>Descrição</InformationTitle>
             <Text style={{ fontSize: 14, marginTop: 5 }}>
@@ -63,7 +60,11 @@ export default function SignUpOption({ route, navigation }) {
             backgroundColor: '#d74d4d',
             borderRadius: 100,
           }}
-          onPress={() => navigation.navigate('Chat')}
+          onPress={() => {
+            navigation.navigate('Chat', {
+              item,
+            });
+          }}
         >
           <Icon name="message-circle" size={30} color="#fff" />
         </TouchableOpacity>

@@ -48,8 +48,6 @@ export default function ProductDetail({ route, navigation }) {
         </View>
         <TouchableOpacity
           style={{
-            borderWidth: 2,
-            borderColor: '#fff',
             alignItems: 'center',
             justifyContent: 'center',
             width: 70,
@@ -59,6 +57,9 @@ export default function ProductDetail({ route, navigation }) {
             height: 70,
             backgroundColor: '#d74d4d',
             borderRadius: 100,
+            shadowColor: 'black',
+            shadowOpacity: 0.9,
+            elevation: 15,
           }}
           onPress={() => {
             navigation.navigate('Chat', {

@@ -53,6 +53,8 @@ export default function Login({ navigation }) {
         ['@PecaFacil:user', JSON.stringify(user)],
       ]);
 
+      formRef.current.reset();
+
       if (user.seller) {
         navigation.navigate('HomeSeller');
         return;

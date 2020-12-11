@@ -1,4 +1,4 @@
-package com.ferrovelho;
+package com.devfreitag.pecafacil;
 
 import com.facebook.react.ReactActivity;
 

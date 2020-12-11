@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "824618354196",
+    "firebase_url": "https://peca-facil-chat.firebaseio.com",
+    "project_id": "peca-facil-chat",
+    "storage_bucket": "peca-facil-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824618354196:android:c6277081b9ef98e58f8901",
+        "android_client_info": {
+          "package_name": "com.devfreitag.pecafacil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "824618354196-dfkp1f6i6chaq7go3oe6rajcqfgjc6n9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devfreitag.pecafacil",
+            "certificate_hash": "80ee0df2151f66a871617366f5f6f70d6914dce7"
+          }
+        },
+        {
+          "client_id": "824618354196-junskn97qkbd6ppedlp9r6a9rkj3ole9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3-9W6jR4ogcTHlt1qqnn9kQ5kecRPtDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "824618354196-junskn97qkbd6ppedlp9r6a9rkj3ole9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

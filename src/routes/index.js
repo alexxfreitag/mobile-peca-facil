@@ -3,17 +3,19 @@ import {
   createStackNavigator,
   TransitionPresets,
 } from '@react-navigation/stack';
+import Icon from 'react-native-vector-icons/Feather';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Login from '../pages/Login';
 import SignUpOption from '../pages/SignUpOption';
 import SignUpUser from '../pages/SignUpUser';
 import HomeUser from '../pages/HomeUser';
 import HomeSeller from '../pages/HomeSeller';
-import AutomobileType from '../pages/FiltersPage/AutomobileType';
 import ProductDetail from '../pages/ProductDetail';
 import ProductRegistration from '../pages/ProductRegistration';
 import Chat from '../pages/Chat';
 import SignUpSeller from '../pages/SignUpSeller';
+// import MainTabScreen from '../pages/MainTab';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +23,8 @@ const TransitionRigthWithoutHeader = {
   headerShown: false,
   ...TransitionPresets.SlideFromRightIOS,
 };
+
+const HomeOptions = {};
 
 export default function Routes() {
   return (
@@ -45,15 +49,66 @@ export default function Routes() {
         component={SignUpSeller}
         options={TransitionRigthWithoutHeader}
       />
+      {/* <Stack.Screen
+        name="HomeUser"
+        component={MainTabScreen}
+
+      /> */}
       <Stack.Screen
         name="HomeUser"
         component={HomeUser}
-        options={{ headerShown: false }}
+        options={({ navigation }) => ({
+          title: 'PeçaFácil',
+          headerStyle: {
+            backgroundColor: '#D74D4D',
+          },
+          // headerTitleAlign: 'center',
+          headerTintColor: '#fff',
+          headerLeft: null,
+          headerRight: () => (
+            <Icon
+              name="log-out"
+              color="#fff"
+              size={25}
+              style={{ marginRight: 10 }}
+              onPress={async () => {
+                await AsyncStorage.multiRemove([
+                  '@PecaFacil:token',
+                  '@PecaFacil:user',
+                ]);
+                navigation.navigate('Login');
+              }}
+            />
+          ),
+        })}
       />
       <Stack.Screen
         name="HomeSeller"
         component={HomeSeller}
-        options={{ headerShown: false }}
+        options={({ navigation }) => ({
+          title: 'PeçaFácil',
+          headerStyle: {
+            backgroundColor: '#D74D4D',
+          },
+          // headerTitleAlign: 'center',
+          headerTintColor: '#fff',
+          headerLeft: null,
+          headerRight: () => (
+            <Icon
+              name="log-out"
+              color="#fff"
+              size={25}
+              style={{ marginRight: 10 }}
+              onPress={async () => {
+                await AsyncStorage.multiRemove([
+                  '@PecaFacil:token',
+                  '@PecaFacil:user',
+                ]);
+                navigation.navigate('Login');
+              }}
+            />
+          ),
+        })}
       />
       <Stack.Screen
         name="ProductRegistration"
@@ -69,7 +124,6 @@ export default function Routes() {
           },
         }}
       />
-      <Stack.Screen name="AutomobileType" component={AutomobileType} />
       <Stack.Screen
         name="ProductDetail"
         component={ProductDetail}

@@ -183,16 +183,16 @@ export default function ProductRegistration({ route, navigation }) {
       >
         <ScrollView>
           <InputTitle>Título do produto *</InputTitle>
-          <Input name="name" placeholder="Ex: Lâmpada traseira" />
+          <Input name="name" placeholder="Ex: Lanterna traseira" />
           <InputTitle style={{ marginTop: 20 }}>
             Descrição do produto
           </InputTitle>
           <Input
             name="description"
-            placeholder="Ex: Acende uma luz quando solicitado"
+            placeholder="Ex: Lanterna traseira Gol G2 95 A 99"
           />
           <InputTitle style={{ marginTop: 20 }}>Categoria *</InputTitle>
-          <Input name="category" placeholder="Ex: Motor" />
+          <Input name="category" placeholder="Ex: Lanterna" />
           <InputTitle style={{ marginTop: 20 }}>Valor *</InputTitle>
           <InputMask
             type="money"

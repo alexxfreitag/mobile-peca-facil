@@ -12,15 +12,20 @@ import Icon from 'react-native-vector-icons/Feather';
 import Button from '../../components/Button';
 import api from '../../services/api';
 import logoImg from '../../assets/logo.png';
+import Modal from '../../components/Modal';
 
 export default function HomeUser({ navigation }) {
+  const [originalProducts, setOriginalProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [modal, setModal] = useState(false);
+  const [messageDataNotFound, setMessageDataNotFound] = useState(
+    'Não existe nenhuma peça cadastrada ainda!',
+  );
 
   useEffect(() => {
     async function loadData() {
       const response = await api.get('/products');
-      setProducts(response.data);
       response.data.forEach((element) => {
         // eslint-disable-next-line no-param-reassign
         element.value = `R$ ${element.value
@@ -28,10 +33,48 @@ export default function HomeUser({ navigation }) {
           .replace('.', ',')
           .replace(/(\d)(?=(\d{3})+,)/g, '$1.')}`;
       });
+      setProducts(response.data);
+      setOriginalProducts(response.data);
+
       setLoading(false);
     }
     loadData();
   }, []);
+
+  const applyFilters = (val, operation) => {
+    if (operation === 'add') {
+      let filteredProducts;
+
+      filteredProducts = originalProducts.filter((product) =>
+        product.name.toLowerCase().includes(val.name),
+      );
+
+      filteredProducts = filteredProducts.filter((product) => {
+        const formattedFilterValue = `R$ ${val.minValue
+          .toFixed(2)
+          .replace('.', ',')
+          .replace(/(\d)(?=(\d{3})+,)/g, '$1.')}`;
+        return product.value >= formattedFilterValue;
+      });
+
+      filteredProducts = filteredProducts.filter((product) => {
+        const formattedFilterValue = `R$ ${val.maxValue
+          .toFixed(2)
+          .replace('.', ',')
+          .replace(/(\d)(?=(\d{3})+,)/g, '$1.')}`;
+        return product.value <= formattedFilterValue;
+      });
+
+      if (filteredProducts.length === 0) {
+        setMessageDataNotFound('Nenhuma peça corresponde ao filtro aplicado!');
+      }
+      setProducts(filteredProducts);
+    } else if (operation === 'remove') {
+      setMessageDataNotFound('Não existe nenhuma peça cadastrada ainda!');
+      setProducts(originalProducts);
+    }
+    setModal(false);
+  };
 
   const renderItem = ({ item }) => {
     return (
@@ -144,7 +187,9 @@ export default function HomeUser({ navigation }) {
         <>
           <Button
             style={{ width: 300, alignSelf: 'center' }}
-            onPress={() => navigation.navigate('AutomobileType')}
+            onPress={
+              () => setModal(true) /* navigation.navigate('AutomobileType') */
+            }
           >
             Pesquisar
           </Button>
@@ -168,7 +213,7 @@ export default function HomeUser({ navigation }) {
                   fontWeight: 'bold',
                 }}
               >
-                Não existe nenhuma peça cadastrada ainda!
+                {messageDataNotFound}
               </Text>
             ) : (
               <>
@@ -194,6 +239,7 @@ export default function HomeUser({ navigation }) {
           </View>
         </>
       )}
+      <Modal show={modal} close={applyFilters} />
     </View>
   );
 }
